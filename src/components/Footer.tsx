@@ -1,77 +1,124 @@
 // src/components/Footer.tsx
+import { Link } from "react-router-dom";
 
-const footerLinks: Record<string, string[]> = {
-  Product: ["Overview", "Features", "Solution", "Releases"],
-  Company: ["About Us", "Careers", "Media", "Contact"],
-  Resources: ["Blog", "Newsletter", "Events", "Help Center"],
-  Social: ["Twitter", "LinkedIn", "Facebook", "GitHub"],
+const footerLinks: Record<string, { label: string; path: string }[]> = {
+  Product: [
+    { label: "Overview", path: "/product/overview" },
+    { label: "Features", path: "/product/features" },
+    { label: "Solution", path: "/product/solution" },
+    { label: "Releases", path: "/product/releases" },
+  ],
+  Company: [
+    { label: "About Us", path: "/company/about" },
+    { label: "Careers", path: "/company/careers" },
+    { label: "Media", path: "/company/media" },
+    { label: "Contact", path: "/company/contact" },
+  ],
+  Resources: [
+    { label: "Blog", path: "/resources/blog" },
+    { label: "Newsletter", path: "/resources/newsletter" },
+    { label: "Events", path: "/resources/events" },
+    { label: "Help Center", path: "/resources/help" },
+  ],
+  Social: [
+    { label: "Twitter", path: "https://twitter.com" },
+    { label: "LinkedIn", path: "https://linkedin.com" },
+    { label: "Facebook", path: "https://facebook.com" },
+    { label: "GitHub", path: "https://github.com" },
+  ],
 };
+
+const bottomLinks = [
+  { label: "Terms of Service", path: "/terms" },
+  { label: "Policy service", path: "/policy" },
+  { label: "Cookie Policy", path: "/cookies" },
+  { label: "Partners", path: "/partners" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t px-6 py-12">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10">
-        {/* Brand */}
-        <div className="md:col-span-1">
-          <h2 className="text-2xl font-bold font-serif mb-3">NewsHub</h2>
-          <p className="text-sm text-gray-500 mb-5 leading-relaxed">
-            Craft narratives that ignite inspiration, knowledge, and
-            entertainment.
-          </p>
-          <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
-            <input
-              type="email"
-              placeholder="Your Email"
-              className="border text-sm px-3 py-2 rounded-md flex-1 focus:outline-none focus:border-red-400"
-            />
-            <button
-              type="submit"
-              className="bg-red-500 text-white text-sm px-4 py-2 rounded-md hover:bg-red-600 transition"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-
-        {/* Links */}
-        {Object.entries(footerLinks).map(([heading, links]) => (
-          <div key={heading}>
-            <h3 className="font-bold text-gray-900 mb-4 text-sm">{heading}</h3>
-            <ul className="space-y-2 list-none p-0 m-0">
-              {links.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="text-sm text-gray-500 hover:text-gray-900 transition no-underline"
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
+    <footer className="bg-white border-t w-full">
+      <div className="px-16 py-12">
+        {/* Top section: brand col + spacer + link columns */}
+        <div className="flex flex-col md:flex-row">
+          {/* Brand + Subscribe */}
+          <div className="w-full md:w-64 flex-shrink-0">
+            <h2 className="text-xl font-bold mb-3">NewsHub</h2>
+            <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+              Craft narratives that ignite inspiration, knowledge, and
+              entertainment.
+            </p>
+            <div className="flex">
+              <input
+                type="email"
+                placeholder="Your Email"
+                className="border border-gray-300 text-sm px-3 py-2 rounded-l-md flex-1 focus:outline-none focus:border-red-400"
+              />
+              <button
+                type="button"
+                className="bg-red-500 text-white text-sm px-4 py-2 rounded-r-md hover:bg-red-600 transition whitespace-nowrap"
+              >
+                Subscribe
+              </button>
+            </div>
           </div>
-        ))}
+
+          {/* Gap between brand and link columns */}
+          <div className="md:w-24 flex-shrink-0" />
+
+          {/* Link columns — evenly spread across remaining space */}
+          <div className="flex flex-1 justify-between gap-8 mt-8 md:mt-0">
+            {Object.entries(footerLinks).map(([heading, links]) => (
+              <div key={heading}>
+                <h3 className="font-semibold text-gray-900 mb-4 text-sm">
+                  {heading}
+                </h3>
+                <ul className="space-y-3 list-none p-0 m-0">
+                  {links.map(({ label, path }) => (
+                    <li key={label}>
+                      {path.startsWith("http") ? (
+                        <a
+                          href={path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-gray-500 hover:text-gray-900 transition no-underline"
+                        >
+                          {label}
+                        </a>
+                      ) : (
+                        <Link
+                          to={path}
+                          className="text-sm text-gray-500 hover:text-gray-900 transition no-underline"
+                        >
+                          {label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
+      {/* Full-width divider — outside the padded container so it spans 100% */}
+      <div className="w-full border-t" />
+
       {/* Bottom bar */}
-      <div className="max-w-6xl mx-auto mt-12 pt-6 border-t flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="px-16 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-xs text-gray-400">
           © 2022 NewsHub. All rights reserved
         </p>
         <div className="flex gap-6 text-xs text-gray-400">
-          {[
-            "Terms of Service",
-            "Policy service",
-            "Cookie Policy",
-            "Partners",
-          ].map((item) => (
-            <a
-              key={item}
-              href="#"
+          {bottomLinks.map(({ label, path }) => (
+            <Link
+              key={label}
+              to={path}
               className="hover:text-gray-700 transition no-underline"
             >
-              {item}
-            </a>
+              {label}
+            </Link>
           ))}
         </div>
       </div>

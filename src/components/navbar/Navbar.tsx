@@ -13,7 +13,7 @@ export default function Navbar() {
         href="/"
         className="text-2xl font-bold text-white tracking-tight font-serif no-underline"
       >
-        NewsHub
+        NewsHorizon
       </a>
 
       <NavLinks />
