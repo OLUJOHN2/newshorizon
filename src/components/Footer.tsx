@@ -43,7 +43,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row">
           {/* Brand + Subscribe */}
           <div className="w-full md:w-64 flex-shrink-0">
-            <h2 className="text-xl font-bold mb-3">NewsHub</h2>
+            <h2 className="text-xl font-bold mb-3">NewsHorizon</h2>
             <p className="text-sm text-gray-500 mb-6 leading-relaxed">
               Craft narratives that ignite inspiration, knowledge, and
               entertainment.
@@ -108,7 +108,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="px-16 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-xs text-gray-400">
-          © 2022 NewsHub. All rights reserved
+          © 2022 NewsHorizon. All rights reserved
         </p>
         <div className="flex gap-6 text-xs text-gray-400">
           {bottomLinks.map(({ label, path }) => (
