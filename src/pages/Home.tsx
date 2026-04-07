@@ -14,7 +14,7 @@ export default function Home() {
       <MustRead />
       <WeeklyHighlight />
       <TopCreators />
-      {/* <Footer /> */}
+      <Footer />
     </main>
   );
 }
