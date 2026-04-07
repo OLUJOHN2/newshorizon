@@ -1,5 +1,6 @@
 // src/components/home/HeroSection.tsx
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const breakingNews = [
   "Ukrainian troops saw Russian soldiers swept away",
@@ -9,6 +10,7 @@ const breakingNews = [
 
 const sideArticles = [
   {
+    id: 10,
     source: "CNN",
     sourceBg: "bg-red-600",
     time: "1 hours ago",
@@ -19,6 +21,7 @@ const sideArticles = [
       "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=80&h=60&fit=crop",
   },
   {
+    id: 2,
     source: "BBC",
     sourceBg: "bg-black",
     time: "1 hours ago",
@@ -29,6 +32,7 @@ const sideArticles = [
       "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=80&h=60&fit=crop",
   },
   {
+    id: 17,
     source: "BBC",
     sourceBg: "bg-black",
     time: "2 hours ago",
@@ -39,6 +43,7 @@ const sideArticles = [
       "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=80&h=60&fit=crop",
   },
   {
+    id: 13,
     source: "CNN",
     sourceBg: "bg-red-600",
     time: "1 hours ago",
@@ -73,15 +78,17 @@ export default function HeroSection() {
 
       {/* Hero Body */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 bg-white border-b">
-        {/* Main Story */}
-        <div className="lg:col-span-2 relative overflow-hidden group">
+        {/* Main Story — article id 1 */}
+        <Link
+          to="/article/1"
+          className="lg:col-span-2 relative overflow-hidden group no-underline block"
+        >
           <div className="relative h-[420px] overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1547683905-f686c993aae5?w=900&h=500&fit=crop"
               alt="Flood damage"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
-            {/* Overlay card */}
             <div className="absolute bottom-0 left-0 right-0 lg:right-auto lg:w-[55%] bg-white p-6 m-4 shadow-lg">
               <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
                 <span className="w-5 h-5 rounded-full bg-black flex items-center justify-center text-white text-[9px] font-bold">
@@ -91,42 +98,45 @@ export default function HeroSection() {
                 <span>•</span>
                 <span>10 mins ago</span>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-3 font-serif">
+              <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-3 font-serif group-hover:text-red-600 transition-colors">
                 People spend night on roofs and in trees after Ukraine dam
                 breach
               </h1>
               <p className="text-sm text-gray-600 mb-3 line-clamp-2">
                 Hundreds of thousands of people have been left without access to
-                normal drinking water since the breach of the Kakhovka dam,
-                Ukraine's President Volodymyr Zelensky has said.
+                normal drinking water since the breach of the Kakhovka dam.
               </p>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">Aug 03, 2023</span>
-                <a
-                  href="#"
-                  className="text-xs font-semibold text-gray-800 hover:underline"
-                >
-                  Read More
-                </a>
+                <span className="text-xs font-semibold text-red-500">
+                  Read More →
+                </span>
               </div>
               <div className="flex gap-2 mt-3">
-                <button className="p-1 border rounded hover:bg-gray-100 transition">
+                <button
+                  onClick={(e) => e.preventDefault()}
+                  className="p-1 border rounded hover:bg-gray-100 transition"
+                >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <button className="p-1 border rounded hover:bg-gray-100 transition">
+                <button
+                  onClick={(e) => e.preventDefault()}
+                  className="p-1 border rounded hover:bg-gray-100 transition"
+                >
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Side Articles */}
         <div className="border-l divide-y">
-          {sideArticles.map((article, i) => (
-            <div
-              key={i}
-              className="flex gap-3 p-4 hover:bg-gray-50 transition cursor-pointer"
+          {sideArticles.map((article) => (
+            <Link
+              key={article.id}
+              to={`/article/${article.id}`}
+              className="flex gap-3 p-4 hover:bg-gray-50 transition cursor-pointer no-underline"
             >
               <img
                 src={article.image}
@@ -142,7 +152,7 @@ export default function HeroSection() {
                   </span>
                   <span className="text-xs text-gray-400">{article.time}</span>
                 </div>
-                <p className="text-sm font-semibold text-gray-800 leading-snug line-clamp-2">
+                <p className="text-sm font-semibold text-gray-800 leading-snug line-clamp-2 hover:text-red-600 transition-colors">
                   {article.title}
                 </p>
                 <div className="flex items-center gap-1 mt-1">
@@ -154,7 +164,7 @@ export default function HeroSection() {
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

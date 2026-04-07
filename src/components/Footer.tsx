@@ -48,7 +48,7 @@ export default function Footer() {
               Craft narratives that ignite inspiration, knowledge, and
               entertainment.
             </p>
-            <div className="flex">
+            <div className="flex mr-10">
               <input
                 type="email"
                 placeholder="Your Email"

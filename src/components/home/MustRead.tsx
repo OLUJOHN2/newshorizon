@@ -1,14 +1,16 @@
 // src/components/home/MustRead.tsx
 import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const mainArticle = {
+  id: 3,
   author: "Jack Harleom",
   authorAvatar: "https://i.pravatar.cc/40?img=11",
   time: "10 hours ago",
   title:
     "Félicien Kabuga: Rwanda genocide suspect unfit to stand trial, UN court rules",
   excerpt:
-    "About 85% of Rwandans are Hutu but the Tutsi minority has long dominated the country. In 1959, the Hutus overthrew the Tutsi monarchy and tens of thousands of Tutsis fled to neighbouring countries, inc Uganda.",
+    "About 85% of Rwandans are Hutu but the Tutsi minority has long dominated the country. In 1959, the Hutus overthrew the Tutsi monarchy and tens of thousands of Tutsis fled to neighbouring countries.",
   category: "Disaster",
   readTime: "1 min read",
   image:
@@ -17,6 +19,7 @@ const mainArticle = {
 
 const sideArticles = [
   {
+    id: 21,
     author: "Oliver Grey",
     authorAvatar: "https://i.pravatar.cc/40?img=15",
     time: "5 hours ago",
@@ -28,6 +31,7 @@ const sideArticles = [
       "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=120&h=80&fit=crop",
   },
   {
+    id: 14,
     author: "Rey Creig",
     authorAvatar: "https://i.pravatar.cc/40?img=22",
     time: "2 hours ago",
@@ -38,6 +42,7 @@ const sideArticles = [
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=120&h=80&fit=crop",
   },
   {
+    id: 6,
     author: "Reine Warner",
     authorAvatar: "https://i.pravatar.cc/40?img=33",
     time: "5 hours ago",
@@ -57,17 +62,20 @@ export default function MustRead() {
         <h2 className="text-2xl font-bold text-gray-900 font-serif">
           Must Read
         </h2>
-        <a
-          href="/must-read"
+        <Link
+          to="/category/world"
           className="text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline"
         >
           See all <ChevronRight className="w-4 h-4" />
-        </a>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Main Article */}
-        <article className="group cursor-pointer">
+        <Link
+          to={`/article/${mainArticle.id}`}
+          className="group cursor-pointer no-underline block"
+        >
           <div className="overflow-hidden rounded-lg h-[240px] mb-4">
             <img
               src={mainArticle.image}
@@ -98,12 +106,16 @@ export default function MustRead() {
             </span>
             <span className="text-gray-400">• {mainArticle.readTime}</span>
           </div>
-        </article>
+        </Link>
 
         {/* Side Articles */}
         <div className="flex flex-col divide-y">
-          {sideArticles.map((article, i) => (
-            <article key={i} className="group flex gap-4 py-4 cursor-pointer">
+          {sideArticles.map((article) => (
+            <Link
+              key={article.id}
+              to={`/article/${article.id}`}
+              className="group flex gap-4 py-4 cursor-pointer no-underline"
+            >
               <div className="overflow-hidden rounded-md w-24 h-20 flex-shrink-0">
                 <img
                   src={article.image}
@@ -135,7 +147,7 @@ export default function MustRead() {
                   <span className="text-gray-400">• {article.readTime}</span>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </div>

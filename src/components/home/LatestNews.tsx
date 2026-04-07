@@ -1,34 +1,38 @@
 // src/components/home/LatestNews.tsx
 import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const articles = [
   {
+    id: 20,
     source: "Formula 1",
     sourceIcon: "F1",
     time: "10 hours ago",
     title:
       "F1 teams had big upgrades planned for Imola – but what happens now?",
     excerpt:
-      "One of the many disruptions the Emilia Romagna Grand Prix not going ahead has caused is that of the teams' development programmes, with several squads having planned to bring big...",
+      "One of the many disruptions the Emilia Romagna Grand Prix not going ahead has caused is that of the teams' development programmes...",
     category: "Sport",
     readTime: "1 min read",
     image:
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=260&fit=crop",
   },
   {
+    id: 8,
     source: "BBC News",
     sourceIcon: "B",
     time: "10 hours ago",
     title:
       "Ukraine war: Wagner boss rubbishes Russian claims of Ukrainian casualties",
     excerpt:
-      "Speaking to state media, Russian Defence Minister Sergei Shoigu insisted that his forces had inflicted over 3,715 casualties on Ukraine during the attack and destroyed dozens...",
+      "Speaking to state media, Russian Defence Minister Sergei Shoigu insisted that his forces had inflicted over 3,715 casualties on Ukraine...",
     category: "War",
     readTime: "1 min read",
     image:
       "https://images.unsplash.com/photo-1580193769210-b8d1c049a7d9?w=400&h=260&fit=crop",
   },
   {
+    id: 4,
     source: "CNN News",
     sourceIcon: "CNN",
     time: "10 hours ago",
@@ -50,17 +54,21 @@ export default function LatestNews() {
         <h2 className="text-2xl font-bold text-gray-900 font-serif">
           Latest News
         </h2>
-        <a
-          href="/latest"
+        <Link
+          to="/category/world"
           className="text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline"
         >
           See all <ChevronRight className="w-4 h-4" />
-        </a>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {articles.map((article, i) => (
-          <article key={i} className="group cursor-pointer">
+        {articles.map((article) => (
+          <Link
+            key={article.id}
+            to={`/article/${article.id}`}
+            className="group cursor-pointer no-underline block"
+          >
             <div className="overflow-hidden rounded-lg mb-4 h-[200px]">
               <img
                 src={article.image}
@@ -89,7 +97,7 @@ export default function LatestNews() {
               </span>
               <span className="text-gray-400">• {article.readTime}</span>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>

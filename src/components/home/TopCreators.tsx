@@ -1,80 +1,61 @@
-// src/components/Footer.tsx
+// src/components/home/TopCreators.tsx
+import { ChevronRight } from "lucide-react";
 
-const footerLinks: Record<string, string[]> = {
-  Product: ["Overview", "Features", "Solution", "Releases"],
-  Company: ["About Us", "Careers", "Media", "Contact"],
-  Resources: ["Blog", "Newsletter", "Events", "Help Center"],
-  Social: ["Twitter", "LinkedIn", "Facebook", "GitHub"],
-};
+const creators = [
+  {
+    name: "Jimena Morrow",
+    outlet: "BBC News",
+    avatar: "https://i.pravatar.cc/80?img=5",
+  },
+  {
+    name: "Efrain Howell",
+    outlet: "iDN News",
+    avatar: "https://i.pravatar.cc/80?img=12",
+  },
+  {
+    name: "Nina Waters",
+    outlet: "Bulettin Inc",
+    avatar: "https://i.pravatar.cc/80?img=9",
+  },
+  {
+    name: "Jamar Burns",
+    outlet: "CNN",
+    avatar: "https://i.pravatar.cc/80?img=17",
+  },
+];
 
-export default function Footer() {
+export default function TopCreators() {
   return (
-    <footer className="bg-white border-t px-6 py-12">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10">
-        {/* Brand */}
-        <div className="md:col-span-1">
-          <h2 className="text-2xl font-bold font-serif mb-3">NewsHub</h2>
-          <p className="text-sm text-gray-500 mb-5 leading-relaxed">
-            Craft narratives that ignite inspiration, knowledge, and
-            entertainment.
-          </p>
-          <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
-            <input
-              type="email"
-              placeholder="Your Email"
-              className="border text-sm px-3 py-2 rounded-md flex-1 focus:outline-none focus:border-red-400"
-            />
-            <button
-              type="submit"
-              className="bg-red-500 text-white text-sm px-4 py-2 rounded-md hover:bg-red-600 transition"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
+    <section className="px-6 py-8 bg-gray-50 border-t">
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-2xl font-bold text-gray-900 font-serif">
+          Top Creator
+        </h2>
+        <a
+          href="/creators"
+          className="text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline"
+        >
+          See all <ChevronRight className="w-4 h-4" />
+        </a>
+      </div>
 
-        {/* Links */}
-        {Object.entries(footerLinks).map(([heading, links]) => (
-          <div key={heading}>
-            <h3 className="font-bold text-gray-900 mb-4 text-sm">{heading}</h3>
-            <ul className="space-y-2 list-none p-0 m-0">
-              {links.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="text-sm text-gray-500 hover:text-gray-900 transition no-underline"
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
+      <div className="flex gap-10 flex-wrap">
+        {creators.map((creator, i) => (
+          <div key={i} className="flex items-center gap-3 group cursor-pointer">
+            <img
+              src={creator.avatar}
+              alt={creator.name}
+              className="w-12 h-12 rounded-full object-cover border-2 border-transparent group-hover:border-red-400 transition"
+            />
+            <div>
+              <p className="text-sm font-bold text-gray-800 group-hover:text-red-600 transition">
+                {creator.name}
+              </p>
+              <p className="text-xs text-gray-500">{creator.outlet}</p>
+            </div>
           </div>
         ))}
       </div>
-
-      {/* Bottom bar */}
-      <div className="max-w-6xl mx-auto mt-12 pt-6 border-t flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-xs text-gray-400">
-          © 2022 NewsHub. All rights reserved
-        </p>
-        <div className="flex gap-6 text-xs text-gray-400">
-          {[
-            "Terms of Service",
-            "Policy service",
-            "Cookie Policy",
-            "Partners",
-          ].map((item) => (
-            <a
-              key={item}
-              href="#"
-              className="hover:text-gray-700 transition no-underline"
-            >
-              {item}
-            </a>
-          ))}
-        </div>
-      </div>
-    </footer>
+    </section>
   );
 }

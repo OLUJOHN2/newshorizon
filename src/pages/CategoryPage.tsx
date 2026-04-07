@@ -33,8 +33,6 @@ export default function CategoryPage() {
   const accent = categoryColors[category] ?? "bg-gray-700";
   const description = categoryDescriptions[category] ?? "";
   const label = category.charAt(0).toUpperCase() + category.slice(1);
-
-  // Split into featured (first article) and the rest
   const [featured, ...rest] = articles;
 
   if (!categories.includes(category)) {
@@ -59,7 +57,6 @@ export default function CategoryPage() {
       {/* Category Hero Banner */}
       <div className={`${accent} text-white px-6 md:px-16 py-10`}>
         <div className="max-w-6xl mx-auto">
-          {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm text-white/70 mb-3">
             <Link to="/" className="hover:text-white no-underline transition">
               Home
@@ -89,7 +86,10 @@ export default function CategoryPage() {
                 <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
                   Featured
                 </p>
-                <article className="group bg-white rounded-2xl overflow-hidden border hover:shadow-md transition-shadow flex flex-col md:flex-row cursor-pointer">
+                <Link
+                  to={`/article/${featured.id}`}
+                  className="group bg-white rounded-2xl overflow-hidden border hover:shadow-md transition-shadow flex flex-col md:flex-row cursor-pointer no-underline block"
+                >
                   <div className="md:w-1/2 h-64 md:h-auto overflow-hidden flex-shrink-0">
                     <img
                       src={featured.image}
@@ -121,18 +121,18 @@ export default function CategoryPage() {
                         </p>
                         <div className="flex items-center gap-1 text-xs text-gray-400">
                           <Clock className="w-3 h-3" />
-                          <span>{featured.date}</span>
-                          <span>•</span>
-                          <span>{featured.readTime}</span>
+                          <span>
+                            {featured.date} • {featured.readTime}
+                          </span>
                         </div>
                       </div>
                     </div>
                   </div>
-                </article>
+                </Link>
               </div>
             )}
 
-            {/* Rest of Articles Grid */}
+            {/* Grid */}
             {rest.length > 0 && (
               <>
                 <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
@@ -140,9 +140,10 @@ export default function CategoryPage() {
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {rest.map((article) => (
-                    <article
+                    <Link
                       key={article.id}
-                      className="group bg-white rounded-xl overflow-hidden border hover:shadow-md transition-shadow cursor-pointer flex flex-col"
+                      to={`/article/${article.id}`}
+                      className="group bg-white rounded-xl overflow-hidden border hover:shadow-md transition-shadow cursor-pointer flex flex-col no-underline block"
                     >
                       <div className="h-48 overflow-hidden flex-shrink-0">
                         <img
@@ -177,7 +178,7 @@ export default function CategoryPage() {
                           </div>
                         </div>
                       </div>
-                    </article>
+                    </Link>
                   ))}
                 </div>
               </>

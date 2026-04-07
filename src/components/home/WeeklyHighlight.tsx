@@ -1,8 +1,10 @@
 // src/components/home/WeeklyHighlight.tsx
 import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const highlights = [
   {
+    id: 1,
     source: "Formula 1",
     sourceIcon: "F1",
     time: "5 days ago",
@@ -13,6 +15,7 @@ const highlights = [
       "https://images.unsplash.com/photo-1547683905-f686c993aae5?w=300&h=200&fit=crop",
   },
   {
+    id: 5,
     source: "BBC News",
     sourceIcon: "B",
     time: "10 hours ago",
@@ -24,6 +27,7 @@ const highlights = [
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=300&h=200&fit=crop",
   },
   {
+    id: 8,
     source: "Nina Waters",
     sourceIcon: "N",
     time: "10 hours ago",
@@ -34,6 +38,7 @@ const highlights = [
       "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=300&h=200&fit=crop",
   },
   {
+    id: 9,
     source: "Jamar Burns",
     sourceIcon: "J",
     time: "10 hours ago",
@@ -53,17 +58,21 @@ export default function WeeklyHighlight() {
         <h2 className="text-2xl font-bold text-gray-900 font-serif">
           Weekly Highlight
         </h2>
-        <a
-          href="/weekly"
+        <Link
+          to="/category/world"
           className="text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline"
         >
           See all <ChevronRight className="w-4 h-4" />
-        </a>
+        </Link>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-        {highlights.map((article, i) => (
-          <article key={i} className="group cursor-pointer">
+        {highlights.map((article) => (
+          <Link
+            key={article.id}
+            to={`/article/${article.id}`}
+            className="group cursor-pointer no-underline block"
+          >
             <div className="overflow-hidden rounded-xl mb-3 h-[150px]">
               <img
                 src={article.image}
@@ -89,7 +98,7 @@ export default function WeeklyHighlight() {
               </span>
               <span className="text-gray-400">• {article.readTime}</span>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>
