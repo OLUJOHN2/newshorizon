@@ -27,7 +27,11 @@ export default function SignUpWriter() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const user = { name: form.name, email: form.email, role: "writer" };
+    const user: { name: string; email: string; role: "writer" | "reader" } = {
+      name: form.name,
+      email: form.email,
+      role: "writer",
+    };
     login(user);
     navigate("/dashboard");
   }

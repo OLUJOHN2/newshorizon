@@ -14,7 +14,11 @@ export default function SignUpReader() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const user = { name: form.name, email: form.email, role: "reader" };
+    const user: { name: string; email: string; role: "writer" | "reader" } = {
+      name: form.name,
+      email: form.email,
+      role: "reader",
+    };
     login(user);
     navigate("/");
   }

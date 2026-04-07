@@ -16,8 +16,12 @@ export default function SignIn() {
       setError("Please fill in all fields.");
       return;
     }
-    // Mock login — replace with real API call
-    const mockUser = { name: "Jane Doe", email, role: "writer" };
+    // Mock login — role must match the User type
+    const mockUser: { name: string; email: string; role: "writer" | "reader" } = {
+      name: "Jane Doe",
+      email,
+      role: "writer",
+    };
     login(mockUser);
     navigate("/dashboard");
   }
