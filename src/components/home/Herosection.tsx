@@ -83,7 +83,7 @@ export default function HeroSection() {
           to="/article/1"
           className="lg:col-span-2 relative overflow-hidden group no-underline block"
         >
-          <div className="relative h-[420px] overflow-hidden">
+          <div className="relative h-105 overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1547683905-f686c993aae5?w=900&h=500&fit=crop"
               alt="Flood damage"
@@ -141,7 +141,7 @@ export default function HeroSection() {
               <img
                 src={article.image}
                 alt={article.title}
-                className="w-20 h-16 object-cover rounded flex-shrink-0"
+                className="w-20 h-16 object-cover rounded shrink-0"
               />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5 mb-1">
