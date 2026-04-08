@@ -17,7 +17,10 @@ function RelatedCard(props: { article: NewsArticle; accent: string }) {
   const a = props.article;
   return (
     <Link to={"/article/" + a.uuid} className="group block no-underline">
-      <div className="overflow-hidden rounded-xl mb-3" style={{ height: "176px" }}>
+      <div
+        className="overflow-hidden rounded-xl mb-3"
+        style={{ height: "176px" }}
+      >
         <img
           src={a.image}
           alt={a.title}
@@ -25,7 +28,12 @@ function RelatedCard(props: { article: NewsArticle; accent: string }) {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
       </div>
-      <span className={"inline-block text-white text-xs font-bold px-2 py-0.5 rounded-full mb-2 " + props.accent}>
+      <span
+        className={
+          "inline-block text-white text-xs font-bold px-2 py-0.5 rounded-full mb-2 " +
+          props.accent
+        }
+      >
         {a.category}
       </span>
       <h3 className="text-sm font-bold text-gray-800 leading-snug group-hover:text-red-600 transition-colors line-clamp-2 font-serif">
@@ -42,7 +50,8 @@ function RelatedCard(props: { article: NewsArticle; accent: string }) {
 export default function LiveArticleView(props: { article: NewsArticle }) {
   const article = props.article;
   const [related, setRelated] = useState<NewsArticle[]>([]);
-  const accent = categoryColors[article.category.toLowerCase()] ?? "bg-gray-600";
+  const accent =
+    categoryColors[article.category.toLowerCase()] ?? "bg-gray-600";
 
   useEffect(() => {
     fetchLatestNews(4).then((all) => {
@@ -53,8 +62,8 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
   const paragraphs = article.content
     ? article.content.split(/\n\n+/).filter(Boolean)
     : article.excerpt
-    ? [article.excerpt]
-    : ["Full article content is available at the original source."];
+      ? [article.excerpt]
+      : ["Full article content is available at the original source."];
 
   return (
     <div className="min-h-screen bg-white">
@@ -62,7 +71,12 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
       <div className="max-w-4xl mx-auto px-4 py-10">
         <BackButton />
 
-        <span className={"inline-block text-white text-xs font-bold px-3 py-1 rounded-full mb-4 " + accent}>
+        <span
+          className={
+            "inline-block text-white text-xs font-bold px-3 py-1 rounded-full mb-4 " +
+            accent
+          }
+        >
           {article.category}
         </span>
 
@@ -82,7 +96,9 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
               {article.sourceIcon}
             </div>
             <div>
-              <p className="text-sm font-bold text-gray-800">{article.source}</p>
+              <p className="text-sm font-bold text-gray-800">
+                {article.source}
+              </p>
               <div className="flex items-center gap-2 text-xs text-gray-400">
                 <Clock className="w-3 h-3" />
                 <span>{article.time}</span>
@@ -91,7 +107,8 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <ActionButtons />
-            
+
+            <a
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
@@ -103,7 +120,10 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
           </div>
         </div>
 
-        <div className="rounded-2xl overflow-hidden mb-10" style={{ height: "380px" }}>
+        <div
+          className="rounded-2xl overflow-hidden mb-10"
+          style={{ height: "380px" }}
+        >
           <img
             src={article.image}
             alt={article.title}
@@ -114,7 +134,11 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
 
         <div>
           {paragraphs.map((para, i) => (
-            <p key={i} className="text-gray-700 leading-8 mb-6" style={{ fontSize: "17px" }}>
+            <p
+              key={i}
+              className="text-gray-700 leading-8 mb-6"
+              style={{ fontSize: "17px" }}
+            >
               {para}
             </p>
           ))}

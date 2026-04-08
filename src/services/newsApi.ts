@@ -4,8 +4,8 @@ const GNEWS_API_KEY = "d84fcc36a5a1f32ca4920edff879f1a3";
 const THENEWS_API_KEY = "j16nPaqPRiW8HBQJWQR8J5hohKj0h19RrsBZpsN9";
 
 export type NewsArticle = {
-  id: string; // uuid from TheNewsAPI, or gnews-N
-  uuid: string; // raw uuid for /news/uuid/:uuid
+  id: string;
+  uuid: string;
   title: string;
   excerpt: string;
   content: string;
@@ -14,7 +14,7 @@ export type NewsArticle = {
   sourceIcon: string;
   time: string;
   category: string;
-  url: string; // original external URL (kept for fallback)
+  url: string;
   publishedAt: string;
 };
 
@@ -60,7 +60,7 @@ function mapTnaArticle(a: any, i: number): NewsArticle {
   };
 }
 
-// ── GNews: breaking ticker ────────────────────────────────────────────────────
+// ── GNews: breaking ticker ──────────────────────────────────────────
 export async function fetchBreakingHeadlines(): Promise<string[]> {
   try {
     const res = await fetch(
@@ -74,7 +74,7 @@ export async function fetchBreakingHeadlines(): Promise<string[]> {
   }
 }
 
-// ── TheNewsAPI: hero stories (top headlines) ──────────────────────────────────
+// ── Hero main articles ──────────────────────────────────────────────
 export async function fetchHeroArticles(count = 5): Promise<NewsArticle[]> {
   try {
     const res = await fetch(
@@ -88,7 +88,21 @@ export async function fetchHeroArticles(count = 5): Promise<NewsArticle[]> {
   }
 }
 
-// ── TheNewsAPI: latest news feed ──────────────────────────────────────────────
+// ── ✅ FIXED: Hero side articles (this was missing) ─────────────────
+export async function fetchHeroSideArticles(): Promise<NewsArticle[]> {
+  try {
+    const res = await fetch(
+      `https://api.thenewsapi.com/v1/news/top?api_token=${THENEWS_API_KEY}&language=en&limit=4`,
+    );
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    return (data.data ?? []).map(mapTnaArticle);
+  } catch {
+    return [];
+  }
+}
+
+// ── Latest news feed ────────────────────────────────────────────────
 export async function fetchLatestNews(count = 6): Promise<NewsArticle[]> {
   try {
     const res = await fetch(
@@ -102,7 +116,7 @@ export async function fetchLatestNews(count = 6): Promise<NewsArticle[]> {
   }
 }
 
-// ── TheNewsAPI: by category ───────────────────────────────────────────────────
+// ── Category news ───────────────────────────────────────────────────
 const CATEGORY_MAP: Record<string, string> = {
   world: "general",
   politics: "politics",
@@ -131,7 +145,7 @@ export async function fetchNewsByCategory(
   }
 }
 
-// ── TheNewsAPI: single article by UUID ───────────────────────────────────────
+// ── Single article ──────────────────────────────────────────────────
 export async function fetchArticleByUUID(
   uuid: string,
 ): Promise<NewsArticle | null> {
@@ -147,7 +161,7 @@ export async function fetchArticleByUUID(
   }
 }
 
-// ── TheNewsAPI: search ────────────────────────────────────────────────────────
+// ── Search ──────────────────────────────────────────────────────────
 export async function searchNews(query: string): Promise<NewsArticle[]> {
   try {
     const res = await fetch(
