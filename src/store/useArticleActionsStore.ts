@@ -73,6 +73,6 @@ export const useArticleActionsStore = create<ArticleActions>()(
           state.savedArticles = new Set(state.savedArticles as any);
         }
       },
-    }
-  )
+    },
+  ),
 );

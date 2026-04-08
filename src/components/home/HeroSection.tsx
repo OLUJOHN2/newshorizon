@@ -70,15 +70,15 @@ export default function HeroSection() {
 
   useEffect(() => {
     // Fetch breaking headlines for ticker
-    fetchBreakingHeadlines().then((headlines) => {
+    fetchBreakingHeadlines().then((headlines: any) => {
       if (headlines.length > 0) setTicker(headlines);
     });
 
     // Fetch side articles
-    fetchHeroSideArticles().then((articles) => {
+    fetchHeroSideArticles().then((articles: any) => {
       if (articles.length >= 3) {
         setSideArticles(
-          articles.slice(0, 4).map((a) => ({
+          articles.slice(0, 4).map((a: any) => ({
             id: a.id,
             source: a.source,
             sourceBg: "bg-gray-700",
@@ -96,10 +96,10 @@ export default function HeroSection() {
     // Refresh every 5 minutes
     const interval = setInterval(
       () => {
-        fetchBreakingHeadlines().then((h) => {
+        fetchBreakingHeadlines().then((h: any) => {
           if (h.length > 0) setTicker(h);
         });
-        fetchHeroSideArticles().then((articles) => {
+        fetchHeroSideArticles().then((articles: any) => {
           if (articles.length >= 3) {
             setSideArticles(
               articles.slice(0, 4).map((a) => ({

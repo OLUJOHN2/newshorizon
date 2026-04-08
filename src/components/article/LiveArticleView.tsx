@@ -92,7 +92,7 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-8 pb-6 border-b">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center text-gray-600 font-bold text-sm">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gray-200 shrink-0 flex items-center justify-center text-gray-600 font-bold text-sm">
               {article.sourceIcon}
             </div>
             <div className="min-w-0">
@@ -100,20 +100,23 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
                 {article.source}
               </p>
               <div className="flex items-center gap-2 text-xs text-gray-400">
-                <Clock className="w-3 h-3 flex-shrink-0" />
+                <Clock className="w-3 h-3 shrink-0" />
                 <span className="truncate">{article.time}</span>
               </div>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
-            <ActionButtons articleId={article.uuid} articleTitle={article.title} />
+            <ActionButtons
+              articleId={article.uuid}
+              articleTitle={article.title}
+            />
             <a
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-1.5 px-3 py-1.5 border rounded-lg text-xs sm:text-sm text-gray-600 hover:bg-gray-50 transition no-underline whitespace-nowrap font-medium"
             >
-              <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+              <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span className="hidden sm:inline">Source</span>
               <span className="sm:hidden">View</span>
             </a>
@@ -124,7 +127,7 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
           className="rounded-xl sm:rounded-2xl overflow-hidden mb-8 sm:mb-10 w-full"
           style={{
             aspectRatio: "16/9",
-            maxHeight: "500px"
+            maxHeight: "500px",
           }}
         >
           <img

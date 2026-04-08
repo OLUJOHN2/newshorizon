@@ -63,7 +63,10 @@ export function BackButton() {
   );
 }
 
-export function ActionButtons(props: { articleId: string; articleTitle: string }) {
+export function ActionButtons(props: {
+  articleId: string;
+  articleTitle: string;
+}) {
   const { toggleLike, toggleSave, isLiked, isSaved } = useArticleActionsStore();
   const [shareOpen, setShareOpen] = useState(false);
   const [shareMessage, setShareMessage] = useState("");
@@ -118,7 +121,9 @@ export function ActionButtons(props: { articleId: string; articleTitle: string }
         }`}
         aria-pressed={liked}
       >
-        <ThumbsUp className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${liked ? "fill-current" : ""}`} />
+        <ThumbsUp
+          className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${liked ? "fill-current" : ""}`}
+        />
         <span className="hidden sm:inline">Like</span>
         <span className="sm:hidden">Like</span>
       </button>
@@ -131,7 +136,9 @@ export function ActionButtons(props: { articleId: string; articleTitle: string }
         }`}
         aria-pressed={saved}
       >
-        <Bookmark className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${saved ? "fill-current" : ""}`} />
+        <Bookmark
+          className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${saved ? "fill-current" : ""}`}
+        />
         <span className="hidden sm:inline">Save</span>
         <span className="sm:hidden">Save</span>
       </button>
@@ -152,7 +159,9 @@ export function ActionButtons(props: { articleId: string; articleTitle: string }
               onClick={handleShare}
               className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition"
             >
-              {navigator.share ? "Share Article" : "Copy Link"}
+              {typeof navigator?.share === "function"
+                ? "Share Article"
+                : "Copy Link"}
             </button>
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(props.articleTitle)}&url=${encodeURIComponent(window.location.href)}`}
@@ -206,7 +215,7 @@ export function AuthorBio(props: {
       <img
         src={props.avatar}
         alt={props.name}
-        className="w-16 h-16 rounded-full object-cover flex-shrink-0"
+        className="w-16 h-16 rounded-full object-cover shrink-0"
       />
       <div>
         <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">

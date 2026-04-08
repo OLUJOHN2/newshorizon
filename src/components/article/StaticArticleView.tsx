@@ -81,22 +81,27 @@ export default function StaticArticleView(props: { article: Article }) {
             <img
               src={article.authorAvatar}
               alt={article.author}
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover flex-shrink-0"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover shrink-0"
             />
             <div className="min-w-0">
               <p className="text-sm font-bold text-gray-800 truncate">
                 {article.author}
               </p>
               <div className="flex items-center gap-2 text-xs text-gray-400">
-                <Clock className="w-3 h-3 flex-shrink-0" />
+                <Clock className="w-3 h-3 shrink-0" />
                 <span className="truncate">{article.date}</span>
                 <span className="hidden sm:inline">•</span>
-                <span className="hidden sm:inline truncate">{article.readTime}</span>
+                <span className="hidden sm:inline truncate">
+                  {article.readTime}
+                </span>
               </div>
             </div>
           </div>
           <div className="w-full sm:w-auto">
-            <ActionButtons articleId={String(article.id)} articleTitle={article.title} />
+            <ActionButtons
+              articleId={String(article.id)}
+              articleTitle={article.title}
+            />
           </div>
         </div>
 
@@ -104,7 +109,7 @@ export default function StaticArticleView(props: { article: Article }) {
           className="rounded-xl sm:rounded-2xl overflow-hidden mb-8 sm:mb-10 w-full"
           style={{
             aspectRatio: "16/9",
-            maxHeight: "500px"
+            maxHeight: "500px",
           }}
         >
           <img

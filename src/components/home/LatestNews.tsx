@@ -1,8 +1,7 @@
 // src/components/home/LatestNews.tsx
 import { useEffect, useState } from "react";
 import { ChevronRight, ExternalLink } from "lucide-react";
-import { fetchLatestNews } from "../../services/newsApi";
-import type { NewsArticle } from "../../services/newsApi";
+import { fetchLatestNews, NewsArticle } from "../../services/newsApi";
 
 const STATIC = [
   {
@@ -54,7 +53,7 @@ export default function LatestNews() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchLatestNews(3).then((data) => {
+    fetchLatestNews(3).then((data: NewsArticle[]) => {
       if (data.length >= 2) {
         setArticles(
           data.slice(0, 3).map((a) => ({
@@ -75,10 +74,10 @@ export default function LatestNews() {
 
     const interval = setInterval(
       () => {
-        fetchLatestNews(3).then((data) => {
+        fetchLatestNews(3).then((data: any) => {
           if (data.length >= 2) {
             setArticles(
-              data.slice(0, 3).map((a) => ({
+              data.slice(0, 3).map((a: any) => ({
                 id: a.id,
                 title: a.title,
                 excerpt: a.excerpt,
@@ -123,7 +122,7 @@ export default function LatestNews() {
           const isExternal = article.url.startsWith("http");
           const card = (
             <div className="group cursor-pointer">
-              <div className="overflow-hidden rounded-lg mb-4 h-[180px] md:h-[200px]">
+              <div className="overflow-hidden rounded-lg mb-4 h-45 md:h-50">
                 <img
                   src={article.image}
                   alt={article.title}
