@@ -68,7 +68,7 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
   return (
     <div className="min-h-screen bg-white">
       <BreadCrumb category={article.category} title={article.title} />
-      <div className="max-w-4xl mx-auto px-4 py-10">
+      <div className="w-full max-w-4xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-10">
         <BackButton />
 
         <span
@@ -80,49 +80,52 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
           {article.category}
         </span>
 
-        <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-4 font-serif">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 leading-tight mb-4 font-serif">
           {article.title}
         </h1>
 
         {article.excerpt && (
-          <p className="text-base text-gray-500 leading-relaxed mb-6 border-l-4 border-red-400 pl-4">
+          <p className="text-sm sm:text-base text-gray-500 leading-relaxed mb-6 border-l-4 border-red-400 pl-4">
             {article.excerpt}
           </p>
         )}
 
-        <div className="flex items-center justify-between flex-wrap gap-4 mb-8 pb-6 border-b">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-8 pb-6 border-b">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center text-gray-600 font-bold text-sm">
               {article.sourceIcon}
             </div>
-            <div>
-              <p className="text-sm font-bold text-gray-800">
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-gray-800 truncate">
                 {article.source}
               </p>
               <div className="flex items-center gap-2 text-xs text-gray-400">
-                <Clock className="w-3 h-3" />
-                <span>{article.time}</span>
+                <Clock className="w-3 h-3 flex-shrink-0" />
+                <span className="truncate">{article.time}</span>
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            <ActionButtons />
-
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+            <ActionButtons articleId={article.uuid} articleTitle={article.title} />
             <a
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 border rounded-lg text-xs text-gray-600 hover:bg-gray-50 transition no-underline"
+              className="flex items-center justify-center gap-1.5 px-3 py-1.5 border rounded-lg text-xs sm:text-sm text-gray-600 hover:bg-gray-50 transition no-underline whitespace-nowrap font-medium"
             >
-              <ExternalLink className="w-3.5 h-3.5" />
-              Source
+              <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Source</span>
+              <span className="sm:hidden">View</span>
             </a>
           </div>
         </div>
 
         <div
-          className="rounded-2xl overflow-hidden mb-10"
-          style={{ height: "380px" }}
+          className="rounded-xl sm:rounded-2xl overflow-hidden mb-8 sm:mb-10 w-full"
+          style={{
+            aspectRatio: "16/9",
+            maxHeight: "500px"
+          }}
         >
           <img
             src={article.image}
@@ -132,17 +135,16 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
           />
         </div>
 
-        <div>
+        <article className="prose prose-sm sm:prose md:prose-lg max-w-none">
           {paragraphs.map((para, i) => (
             <p
               key={i}
-              className="text-gray-700 leading-8 mb-6"
-              style={{ fontSize: "17px" }}
+              className="text-gray-700 leading-7 sm:leading-8 mb-6 text-sm sm:text-base"
             >
               {para}
             </p>
           ))}
-        </div>
+        </article>
 
         {related.length > 0 && (
           <RelatedSection category={article.category}>

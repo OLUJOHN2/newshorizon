@@ -56,7 +56,7 @@ export default function StaticArticleView(props: { article: Article }) {
   return (
     <div className="min-h-screen bg-white">
       <BreadCrumb category={article.category} title={article.title} />
-      <div className="max-w-4xl mx-auto px-4 py-10">
+      <div className="w-full max-w-4xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-10">
         <BackButton />
 
         <span
@@ -68,39 +68,44 @@ export default function StaticArticleView(props: { article: Article }) {
           {article.category.charAt(0).toUpperCase() + article.category.slice(1)}
         </span>
 
-        <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-4 font-serif">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 leading-tight mb-4 font-serif">
           {article.title}
         </h1>
 
-        <p className="text-base text-gray-500 leading-relaxed mb-6 border-l-4 border-red-400 pl-4">
+        <p className="text-sm sm:text-base text-gray-500 leading-relaxed mb-6 border-l-4 border-red-400 pl-4">
           {article.excerpt}
         </p>
 
-        <div className="flex items-center justify-between flex-wrap gap-4 mb-8 pb-6 border-b">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-8 pb-6 border-b">
           <div className="flex items-center gap-3">
             <img
               src={article.authorAvatar}
               alt={article.author}
-              className="w-11 h-11 rounded-full object-cover"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover flex-shrink-0"
             />
-            <div>
-              <p className="text-sm font-bold text-gray-800">
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-gray-800 truncate">
                 {article.author}
               </p>
               <div className="flex items-center gap-2 text-xs text-gray-400">
-                <Clock className="w-3 h-3" />
-                <span>{article.date}</span>
-                <span>•</span>
-                <span>{article.readTime}</span>
+                <Clock className="w-3 h-3 flex-shrink-0" />
+                <span className="truncate">{article.date}</span>
+                <span className="hidden sm:inline">•</span>
+                <span className="hidden sm:inline truncate">{article.readTime}</span>
               </div>
             </div>
           </div>
-          <ActionButtons />
+          <div className="w-full sm:w-auto">
+            <ActionButtons articleId={String(article.id)} articleTitle={article.title} />
+          </div>
         </div>
 
         <div
-          className="rounded-2xl overflow-hidden mb-10"
-          style={{ height: "380px" }}
+          className="rounded-xl sm:rounded-2xl overflow-hidden mb-8 sm:mb-10 w-full"
+          style={{
+            aspectRatio: "16/9",
+            maxHeight: "500px"
+          }}
         >
           <img
             src={article.image}
@@ -109,17 +114,16 @@ export default function StaticArticleView(props: { article: Article }) {
           />
         </div>
 
-        <div>
+        <article className="prose prose-sm sm:prose md:prose-lg max-w-none">
           {paragraphs.map((para, i) => (
             <p
               key={i}
-              className="text-gray-700 leading-8 mb-6"
-              style={{ fontSize: "17px" }}
+              className="text-gray-700 leading-7 sm:leading-8 mb-6 text-sm sm:text-base"
             >
               {para}
             </p>
           ))}
-        </div>
+        </article>
 
         <AuthorBio
           avatar={article.authorAvatar}

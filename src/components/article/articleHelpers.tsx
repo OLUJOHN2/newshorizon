@@ -7,6 +7,8 @@ import {
   Bookmark,
   Share2,
 } from "lucide-react";
+import { useState } from "react";
+import { useArticleActionsStore } from "../../store/useArticleActionsStore";
 
 export const FALLBACK_IMG =
   "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=500&fit=crop";
@@ -61,21 +63,135 @@ export function BackButton() {
   );
 }
 
-export function ActionButtons() {
+export function ActionButtons(props: { articleId: string; articleTitle: string }) {
+  const { toggleLike, toggleSave, isLiked, isSaved } = useArticleActionsStore();
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareMessage, setShareMessage] = useState("");
+
+  const liked = isLiked(props.articleId);
+  const saved = isSaved(props.articleId);
+
+  const handleLike = () => {
+    toggleLike(props.articleId);
+  };
+
+  const handleSave = () => {
+    toggleSave(props.articleId);
+  };
+
+  const handleShare = async () => {
+    const shareUrl = `${window.location.origin}/article/${props.articleId}`;
+    const shareData = {
+      title: "NewsHorizon",
+      text: props.articleTitle,
+      url: shareUrl,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") {
+          console.error("Error sharing:", err);
+        }
+      }
+    } else {
+      // Fallback: Copy to clipboard
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        setShareMessage("Link copied to clipboard!");
+        setTimeout(() => setShareMessage(""), 2000);
+      } catch (err) {
+        console.error("Error copying to clipboard:", err);
+      }
+    }
+  };
+
   return (
-    <div className="flex items-center gap-2">
-      <button className="flex items-center gap-1.5 px-3 py-1.5 border rounded-lg text-xs text-gray-600 hover:bg-gray-50 transition">
-        <ThumbsUp className="w-3.5 h-3.5" />
-        Like
+    <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+      <button
+        onClick={handleLike}
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap flex-1 sm:flex-none ${
+          liked
+            ? "bg-red-50 text-red-600 border border-red-200 hover:bg-red-100"
+            : "border border-gray-300 text-gray-600 hover:bg-gray-50"
+        }`}
+        aria-pressed={liked}
+      >
+        <ThumbsUp className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${liked ? "fill-current" : ""}`} />
+        <span className="hidden sm:inline">Like</span>
+        <span className="sm:hidden">Like</span>
       </button>
-      <button className="flex items-center gap-1.5 px-3 py-1.5 border rounded-lg text-xs text-gray-600 hover:bg-gray-50 transition">
-        <Bookmark className="w-3.5 h-3.5" />
-        Save
+      <button
+        onClick={handleSave}
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap flex-1 sm:flex-none ${
+          saved
+            ? "bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100"
+            : "border border-gray-300 text-gray-600 hover:bg-gray-50"
+        }`}
+        aria-pressed={saved}
+      >
+        <Bookmark className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${saved ? "fill-current" : ""}`} />
+        <span className="hidden sm:inline">Save</span>
+        <span className="sm:hidden">Save</span>
       </button>
-      <button className="flex items-center gap-1.5 px-3 py-1.5 border rounded-lg text-xs text-gray-600 hover:bg-gray-50 transition">
-        <Share2 className="w-3.5 h-3.5" />
-        Share
-      </button>
+      <div className="relative flex-1 sm:flex-none">
+        <button
+          onClick={() => setShareOpen(!shareOpen)}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium border border-gray-300 text-gray-600 hover:bg-gray-50 transition w-full sm:w-auto justify-center"
+          aria-haspopup="menu"
+          aria-expanded={shareOpen}
+        >
+          <Share2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <span className="hidden sm:inline">Share</span>
+          <span className="sm:hidden">Share</span>
+        </button>
+        {shareOpen && (
+          <div className="absolute top-full right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-10 min-w-max">
+            <button
+              onClick={handleShare}
+              className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition"
+            >
+              {navigator.share ? "Share Article" : "Copy Link"}
+            </button>
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(props.articleTitle)}&url=${encodeURIComponent(window.location.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition"
+            >
+              Twitter
+            </a>
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition border-t"
+            >
+              Facebook
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition"
+            >
+              LinkedIn
+            </a>
+            <button
+              onClick={() => setShareOpen(false)}
+              className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition border-t"
+            >
+              Close
+            </button>
+          </div>
+        )}
+        {shareMessage && (
+          <div className="absolute top-full right-0 mt-2 bg-gray-900 text-white px-3 py-2 rounded-lg text-xs whitespace-nowrap">
+            {shareMessage}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
