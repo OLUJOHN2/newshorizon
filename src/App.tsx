@@ -4,6 +4,7 @@ import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/Home";
 import CategoryPage from "./pages/CategoryPage";
 import ArticlePage from "./pages/ArticlePage";
+import SearchPage from "./pages/SearchPage";
 import WriterDashboard from "./pages/WriterDashboard";
 import SignIn from "./features/auth/SignIn";
 import SignUpChoice from "./features/auth/SignUpChoice";
@@ -18,6 +19,7 @@ function Layout() {
         <Route path="/" element={<Home />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/article/:id" element={<ArticlePage />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/auth/signin" element={<SignIn />} />
         <Route path="/auth/signup" element={<SignUpChoice />} />
         <Route path="/auth/signup/reader" element={<SignUpReader />} />
@@ -31,10 +33,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Dashboard has its own sidebar — no shared Navbar */}
         <Route path="/dashboard" element={<WriterDashboard />} />
-
-        {/* All other routes share the Navbar */}
         <Route path="/*" element={<Layout />} />
       </Routes>
     </BrowserRouter>
