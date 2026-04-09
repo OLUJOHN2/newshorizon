@@ -1,7 +1,8 @@
 // src/components/home/LatestNews.tsx
 import { useEffect, useState } from "react";
 import { ChevronRight, ExternalLink } from "lucide-react";
-import { fetchLatestNews, NewsArticle } from "../../services/newsApi";
+import { fetchLatestNews } from "../../services/newsApi";
+import type { NewsArticle } from "../../services/newsApi";
 
 const STATIC = [
   {
@@ -99,9 +100,9 @@ export default function LatestNews() {
   }, []);
 
   return (
-    <section className="px-4 md:px-6 py-8 md:py-10 bg-white">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl md:text-2xl font-bold text-gray-900 font-serif">
+    <section className="px-4 md:px-6 py-8 md:py-10 bg-white max-w-full overflow-hidden">
+      <div className="flex items-center justify-between mb-6 gap-2">
+        <h2 className="text-lg md:text-2xl font-bold text-gray-900 font-serif flex-1">
           Latest News
           {loading && (
             <span className="ml-2 text-xs text-gray-400 font-normal animate-pulse">
@@ -111,13 +112,13 @@ export default function LatestNews() {
         </h2>
         <a
           href="/category/world"
-          className="text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline"
+          className="text-xs md:text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline whitespace-nowrap shrink-0"
         >
-          See all <ChevronRight className="w-4 h-4" />
+          See all <ChevronRight className="w-3 md:w-4 h-3 md:h-4" />
         </a>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {articles.map((article) => {
           const isExternal = article.url.startsWith("http");
           const card = (

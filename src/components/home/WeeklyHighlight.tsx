@@ -53,20 +53,20 @@ const highlights = [
 
 export default function WeeklyHighlight() {
   return (
-    <section className="px-6 py-10 bg-white">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 font-serif">
+    <section className="px-4 md:px-6 py-8 md:py-10 bg-white">
+      <div className="flex items-center justify-between mb-6 gap-2">
+        <h2 className="text-lg md:text-2xl font-bold text-gray-900 font-serif flex-1">
           Weekly Highlight
         </h2>
         <Link
           to="/category/world"
-          className="text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline"
+          className="text-xs md:text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline whitespace-nowrap shrink-0"
         >
-          See all <ChevronRight className="w-4 h-4" />
+          See all <ChevronRight className="w-3 md:w-4 h-3 md:h-4" />
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-5">
         {highlights.map((article) => (
           <Link
             key={article.id}

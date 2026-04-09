@@ -38,25 +38,25 @@ const bottomLinks = [
 export default function Footer() {
   return (
     <footer className="bg-white border-t w-full">
-      <div className="px-16 py-12">
+      <div className="px-4 md:px-6 lg:px-16 py-8 md:py-12">
         {/* Top section: brand col + spacer + link columns */}
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-0">
           {/* Brand + Subscribe */}
-          <div className="w-full md:w-64 flex-shrink-0">
-            <h2 className="text-xl font-bold mb-3">NewsHorizon</h2>
-            <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+          <div className="w-full md:w-64 shrink-0">
+            <h2 className="text-lg md:text-xl font-bold mb-3">NewsHorizon</h2>
+            <p className="text-xs md:text-sm text-gray-500 mb-6 leading-relaxed">
               Craft narratives that ignite inspiration, knowledge, and
               entertainment.
             </p>
-            <div className="flex mr-10">
+            <div className="flex gap-2 mr-10">
               <input
                 type="email"
                 placeholder="Your Email"
-                className="border border-gray-300 text-sm px-3 py-2 rounded-l-md flex-1 focus:outline-none focus:border-red-400"
+                className="border border-gray-300 text-xs md:text-sm px-3 py-2 rounded-l-md flex-1 focus:outline-none focus:border-red-400 min-w-0"
               />
               <button
                 type="button"
-                className="bg-red-500 text-white text-sm px-4 py-2 rounded-r-md hover:bg-red-600 transition whitespace-nowrap"
+                className="bg-red-500 text-white text-xs md:text-sm px-3 md:px-4 py-2 rounded-r-md hover:bg-red-600 transition whitespace-nowrap shrink-0"
               >
                 Subscribe
               </button>
@@ -64,10 +64,10 @@ export default function Footer() {
           </div>
 
           {/* Gap between brand and link columns */}
-          <div className="md:w-24 flex-shrink-0" />
+          <div className="hidden md:block md:w-24 shrink-0" />
 
           {/* Link columns — evenly spread across remaining space */}
-          <div className="flex flex-1 justify-between gap-8 mt-8 md:mt-0">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 flex-1">
             {Object.entries(footerLinks).map(([heading, links]) => (
               <div key={heading}>
                 <h3 className="font-semibold text-gray-900 mb-4 text-sm">
@@ -106,16 +106,16 @@ export default function Footer() {
       <div className="w-full border-t" />
 
       {/* Bottom bar */}
-      <div className="px-16 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="px-4 md:px-6 lg:px-16 py-4 md:py-6 flex flex-col items-start md:items-center justify-between gap-2 md:gap-4">
         <p className="text-xs text-gray-400">
           © 2022 NewsHorizon. All rights reserved
         </p>
-        <div className="flex gap-6 text-xs text-gray-400">
+        <div className="flex flex-wrap gap-3 md:gap-6 text-xs text-gray-400">
           {bottomLinks.map(({ label, path }) => (
             <Link
               key={label}
               to={path}
-              className="hover:text-gray-700 transition no-underline"
+              className="hover:text-gray-700 transition no-underline whitespace-nowrap"
             >
               {label}
             </Link>

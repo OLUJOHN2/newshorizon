@@ -146,9 +146,9 @@ export default function CategoryPage() {
                 </p>
                 <Link
                   to={`/article/${featured.uuid}`}
-                  className="group bg-white rounded-2xl overflow-hidden border hover:shadow-md transition-shadow flex flex-col md:flex-row no-underline block"
+                  className="group bg-white rounded-2xl overflow-hidden border hover:shadow-md transition-shadow flex-col md:flex-row no-underline block"
                 >
-                  <div className="md:w-1/2 h-64 md:h-auto overflow-hidden flex-shrink-0">
+                  <div className="md:w-1/2 h-64 md:h-auto overflow-hidden shrink-0">
                     <img
                       src={featured.image}
                       alt={featured.title}
@@ -201,9 +201,9 @@ export default function CategoryPage() {
                     <Link
                       key={article.uuid}
                       to={`/article/${article.uuid}`}
-                      className="group bg-white rounded-xl overflow-hidden border hover:shadow-md transition-shadow flex flex-col no-underline block"
+                      className="group bg-white rounded-xl overflow-hidden border hover:shadow-md transition-shadow flex-col no-underline block"
                     >
-                      <div className="h-48 overflow-hidden flex-shrink-0">
+                      <div className="h-48 overflow-hidden shrink-0">
                         <img
                           src={article.image}
                           alt={article.title}
@@ -222,7 +222,7 @@ export default function CategoryPage() {
                           {article.excerpt}
                         </p>
                         <div className="flex items-center gap-2 mt-auto">
-                          <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-[10px] font-bold text-gray-600 flex-shrink-0">
+                          <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-[10px] font-bold text-gray-600 shrink-0">
                             {article.sourceIcon}
                           </div>
                           <div className="min-w-0">
@@ -230,7 +230,7 @@ export default function CategoryPage() {
                               {article.source}
                             </p>
                             <div className="flex items-center gap-1 text-xs text-gray-400">
-                              <Clock className="w-3 h-3 flex-shrink-0" />
+                              <Clock className="w-3 h-3 shrink-0" />
                               <span className="truncate">{article.time}</span>
                             </div>
                           </div>

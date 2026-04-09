@@ -26,20 +26,20 @@ const creators = [
 
 export default function TopCreators() {
   return (
-    <section className="px-6 py-8 bg-gray-50 border-t">
-      <div className="flex items-center justify-between mb-5">
-        <h2 className="text-2xl font-bold text-gray-900 font-serif">
+    <section className="px-4 md:px-6 py-8 md:py-10 bg-gray-50 border-t">
+      <div className="flex items-center justify-between mb-5 gap-2">
+        <h2 className="text-lg md:text-2xl font-bold text-gray-900 font-serif flex-1">
           Top Creator
         </h2>
         <a
           href="/creators"
-          className="text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline"
+          className="text-xs md:text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline whitespace-nowrap shrink-0"
         >
-          See all <ChevronRight className="w-4 h-4" />
+          See all <ChevronRight className="w-3 md:w-4 h-3 md:h-4" />
         </a>
       </div>
 
-      <div className="flex gap-10 flex-wrap">
+      <div className="flex gap-4 md:gap-10 flex-wrap">
         {creators.map((creator, i) => (
           <div key={i} className="flex items-center gap-3 group cursor-pointer">
             <img

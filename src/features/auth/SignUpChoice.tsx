@@ -7,10 +7,10 @@ export default function SignUpChoice() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="bg-white w-full max-w-md rounded-2xl shadow-sm border p-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-1 font-serif">
-          Create a NewsHub Account
+          Create a NewsHorizon Account
         </h1>
         <p className="text-sm text-gray-500 mb-8">
-          Choose how you'd like to use NewsHub.
+          Choose how you'd like to use NewsHorizon.
         </p>
 
         <div className="space-y-4">
