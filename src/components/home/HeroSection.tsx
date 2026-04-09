@@ -86,7 +86,7 @@ export default function HeroSection() {
             category: a.category,
             readTime: "2 min read",
             image: a.image,
-            url: a.url,
+            url: `/article/${a.uuid}`,
           })),
         );
       }
@@ -110,7 +110,7 @@ export default function HeroSection() {
                 category: a.category,
                 readTime: "2 min read",
                 image: a.image,
-                url: a.url,
+                url: `/article/${a.uuid}`,
               })),
             );
           }

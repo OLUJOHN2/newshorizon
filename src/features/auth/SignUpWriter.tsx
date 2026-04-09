@@ -40,7 +40,7 @@ export default function SignUpWriter() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
       <div className="bg-white w-full max-w-xl rounded-2xl shadow-sm border p-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-1 font-serif">
-          Become a Writer on NewsHub
+          Become a Writer on NewsHorizon
         </h1>
         <p className="text-sm text-gray-500 mb-6">
           Share your expertise with the world.

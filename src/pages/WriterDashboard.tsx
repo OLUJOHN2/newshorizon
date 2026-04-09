@@ -14,6 +14,8 @@ import {
   ChevronRight,
   Clock,
   BookOpen,
+  Menu,
+  X,
 } from "lucide-react";
 
 const stats = [
@@ -91,6 +93,7 @@ export default function WriterDashboard() {
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   function handleLogout() {
     logout();
@@ -98,16 +101,18 @@ export default function WriterDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex flex-col lg:flex-row">
       {/* Sidebar */}
-      <aside className="w-60 bg-[#111] flex-shrink-0 flex flex-col sticky top-0 h-screen">
+      <aside className={`fixed inset-0 z-50 w-60 bg-[#111] flex-shrink-0 flex flex-col lg:static lg:z-0 transition-transform duration-300 transform ${
+        mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+      }`}>
         {/* Logo */}
         <div className="px-6 py-5 border-b border-gray-800">
           <Link
             to="/"
             className="text-xl font-bold text-white font-serif no-underline"
           >
-            NewsHub
+            NewsHorizon
           </Link>
           <p className="text-xs text-gray-500 mt-0.5">Writer Studio</p>
         </div>
@@ -155,37 +160,56 @@ export default function WriterDashboard() {
         </div>
       </aside>
 
+      {/* Overlay for mobile menu */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Main content */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto w-full">
         {/* Header */}
-        <div className="bg-white border-b px-8 py-5 flex items-center justify-between sticky top-0 z-10">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">
+        <div className="bg-white border-b px-4 md:px-8 py-4 md:py-5 flex items-center justify-between sticky top-0 z-10 gap-4">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden text-gray-700 hover:text-gray-900"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg md:text-xl font-bold text-gray-900 truncate">
               {activeTab === "overview" && "Dashboard Overview"}
               {activeTab === "articles" && "My Articles"}
               {activeTab === "new" && "New Article"}
               {activeTab === "analytics" && "Analytics"}
               {activeTab === "drafts" && "Drafts"}
             </h1>
-            <p className="text-sm text-gray-500">
+            <p className="text-xs md:text-sm text-gray-500">
               Welcome back, {(user as any)?.name?.split(" ")[0] ?? "Writer"} 👋
             </p>
           </div>
           <button
-            onClick={() => setActiveTab("new")}
-            className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition"
+            onClick={() => {
+              setActiveTab("new");
+              setMobileMenuOpen(false);
+            }}
+            className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white text-xs md:text-sm font-semibold px-3 md:px-4 py-2 rounded-lg transition whitespace-nowrap shrink-0"
           >
             <PlusCircle className="w-4 h-4" />
-            New Article
+            <span className="hidden sm:inline">New Article</span>
+            <span className="sm:hidden">New</span>
           </button>
         </div>
 
-        <div className="px-8 py-8">
+        <div className="px-4 md:px-8 py-6 md:py-8">
           {/* OVERVIEW TAB */}
           {activeTab === "overview" && (
             <div className="space-y-8">
               {/* Stats */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-5">
                 {stats.map(({ label, value, icon: Icon, color }) => (
                   <div
                     key={label}

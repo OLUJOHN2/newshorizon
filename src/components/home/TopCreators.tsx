@@ -32,7 +32,7 @@ export default function TopCreators() {
           Top Creator
         </h2>
         <a
-          href="/creators"
+          href="/"
           className="text-xs md:text-sm text-red-500 font-semibold flex items-center gap-1 hover:gap-2 transition-all no-underline whitespace-nowrap shrink-0"
         >
           See all <ChevronRight className="w-3 md:w-4 h-3 md:h-4" />

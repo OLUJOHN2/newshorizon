@@ -30,7 +30,7 @@ export default function SignIn() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="bg-white w-full max-w-md rounded-2xl shadow-sm border p-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-1 font-serif">
-          Sign in to NewsHub
+          Sign in to NewsHorizon
         </h1>
         <p className="text-sm text-gray-500 mb-6">
           Welcome back — good to see you again.
