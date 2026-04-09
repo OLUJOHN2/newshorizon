@@ -12,6 +12,7 @@ import {
   ActionButtons,
   RelatedSection,
 } from "./articleHelpers";
+import Comments from "./Comments";
 
 function RelatedCard(props: { article: NewsArticle; accent: string }) {
   const a = props.article;
@@ -156,6 +157,8 @@ export default function LiveArticleView(props: { article: NewsArticle }) {
             ))}
           </RelatedSection>
         )}
+
+        <Comments articleId={article.uuid} />
       </div>
     </div>
   );

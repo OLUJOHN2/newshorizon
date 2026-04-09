@@ -11,6 +11,7 @@ import {
   AuthorBio,
   RelatedSection,
 } from "./articleHelpers";
+import Comments from "./Comments";
 
 function RelatedCard(props: { article: Article; accent: string }) {
   const a = props.article;
@@ -143,6 +144,8 @@ export default function StaticArticleView(props: { article: Article }) {
             ))}
           </RelatedSection>
         )}
+
+        <Comments articleId={String(article.id)} />
       </div>
     </div>
   );
